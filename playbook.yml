@@ -1,0 +1,15 @@
+- hosts: production 
+  remote_user: vagrant
+  vars:
+    app_name: tile_server 
+    server_name: 192.168.100.100
+    deploy_user: vagrant
+
+    virtualenv_dir: /home/{{ deploy_user }}/.venv
+    wsgi_file_path: /home/{{ deploy_user }}/{{ app_name }}/wsgi.py
+    base_applications_path: /home/{{ deploy_user }}
+
+    mapproxy_cache_dir: /cache/mapproxy
+    
+  roles:
+     - { role: tile-server }

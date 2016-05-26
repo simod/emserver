@@ -1,0 +1,36 @@
+###
+# Installs mapproxy 
+#
+
+- name: ensure mapproxy dependencies are installed
+  apt: name={{item}}
+  sudo: yes
+  with_items:
+    - python-dev
+    - python-pip
+    - python-imaging
+    - python-yaml
+    - libproj0
+    - libgeos-dev 
+    - python-lxml 
+    - libgdal-dev 
+    - python-shapely
+    - build-essential 
+    - python-dev 
+    - libjpeg-dev   
+    - zlib1g-dev 
+    - libfreetype6-dev
+
+- name: install mapproxy
+  pip: name=mapproxy
+  sudo: true
+
+- name: create the cache folder
+  file: path={{ mapproxy_cache_dir }} state=directory owner=www-data group=www-data
+
+- name: copy mapproxy configuration
+  template: src=mapproxy_config.yml.j2 dest={{ base_applications_path }}/{{ app_name }}/mapproxy_config.yml
+
+- name: copy the wsgi file
+  template: src=wsgi.py.j2 dest={{ base_applications_path }}/{{ app_name }}/wsgi.py
+    

@@ -1,0 +1,21 @@
+server {
+    listen      80;
+    server_name {{ server_name }};
+
+    charset     utf-8;
+
+    access_log /var/log/nginx/{{ app_name }}.access.log;
+    error_log /var/log/nginx/{{ app_name }}.error.log info;
+
+    client_max_body_size 200M;
+
+    location {{ mapproxy_cache_dir }}/ {
+         alias {{ mapproxy_cache_dir }}/;
+         autoindex on;
+    }
+
+    location / {
+        uwsgi_pass  unix:///tmp/{{ app_name }}.sock;
+        include uwsgi_params;
+    }
+}

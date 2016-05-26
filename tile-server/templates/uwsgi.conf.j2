@@ -1,0 +1,8 @@
+description "uwsgi mapproxy"
+
+start on runlevel [2345]
+stop on runlevel [06]
+
+respawn
+
+exec uwsgi --emperor /etc/uwsgi --die-on-term --uid www-data --gid www-data

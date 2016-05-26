@@ -1,0 +1,19 @@
+##
+# these scripts set up a complete web application stack that is connected
+# to the remote database backend the other deployment scripts set up
+#
+---
+
+- name: create base application folder
+  file: path={{ base_applications_path }}/{{ app_name }} state=directory owner=www-data group=www-data
+
+- include: nginx.yml
+- include: mapproxy.yml
+- include: mapnik.yml
+- include: uwsgi.yml
+
+- name: reload uwsgi
+  service: name=uwsgi state=restarted
+
+- name: reload nginx
+  service: name=nginx state=restarted

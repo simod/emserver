@@ -1,0 +1,20 @@
+# install mapnik
+
+- name: install mapnik
+  apt: name={{ item }}
+  with_items:
+    - libmapnik2.2
+    - libmapnik-dev 
+    - mapnik-utils 
+    - python-mapnik
+
+- name: copy mapnik configuration
+  copy: src=mapnik.xml dest={{ base_applications_path }}/{{ app_name }}/mapnik.xml
+
+- name: copy the streams shapefiles
+  copy: src={{ item }} dest={{ base_applications_path }}/{{ app_name }}/{{ item }}
+  with_items:
+    - streams.shp
+    - streams.dbf
+    - streams.shx
+    - streams.prj

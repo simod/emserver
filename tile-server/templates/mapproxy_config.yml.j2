@@ -1,0 +1,44 @@
+services:
+  demo:
+  tms:
+    use_grid_names: true
+    # origin for /tiles service
+    origin: 'nw'
+  kml:
+      use_grid_names: true
+  wmts:
+  wms:
+    md:
+      title: MapProxy WMS Proxy
+      abstract: This is a minimal MapProxy example.
+
+layers:
+  - name: streams
+    title: Streams
+    sources: [streams_cache]
+
+caches:
+  streams_cache:
+    cache:
+      directory: {{ mapproxy_cache_dir }}/layer/streams/
+      directory_layout: tms
+      type: file
+    grids:
+    - default_grid
+    sources:
+    - streams
+
+sources:
+  streams:
+    type: mapnik
+    mapfile: ./mapnik.xml 
+    layers: [streams]
+    transparent: true
+
+grids:
+  default_grid:
+    origin: nw
+    srs: EPSG:3857
+    tile_size:
+    - 256
+    - 256

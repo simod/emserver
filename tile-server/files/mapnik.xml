@@ -1,0 +1,17 @@
+<Map>
+    <Style name="streams">
+        <Rule>
+            <LineSymbolizer>
+                <CssParameter name="stroke">#496</CssParameter>
+                <CssParameter name="stroke-width">3</CssParameter>
+            </LineSymbolizer>
+        </Rule>
+    </Style>
+    <Layer name="streams" status="on">
+        <StyleName>streams</StyleName>
+        <Datasource>
+            <Parameter name="type">shape</Parameter>
+            <Parameter name="file">streams.shp</Parameter>
+       </Datasource>
+    </Layer>
+</Map>

@@ -1,0 +1,15 @@
+[uwsgi]
+
+project = {{ app_name }}
+socket = /tmp/{{ app_name }}.sock
+threads = 20
+chmod-socket = 666
+wsgi-file  = {{ wsgi_file_path }}
+pidfile = /tmp/%n.pid
+chdir = {{ base_applications_path }}/{{ app_name }}
+max-requests = 5000
+vacuum = true
+
+master = true
+processes = 1
+logger = file:/var/log/nginx/{{ app_name }}.log
